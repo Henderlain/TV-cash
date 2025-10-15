@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ video['title'] }}</h2>
+<div class="embed">
+  <iframe src="{{ video['embed_url'] }}" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<p>Recompense par video : {{ VIDEO_REWARD if (VIDEO_REWARD is defined) else 250 }} F</p>
+
+<button id="claimBtn" class="btn">Valider le visionnage et reclamer {{ VIDEO_REWARD if (VIDEO_REWARD is defined) else 250 }} F</button>
+
+<script>
+document.getElementById("claimBtn").addEventListener("click", async function(){
+  const resp = await fetch("{{ url_for('claim_video_reward', video_id=video['id']) }}", {method:'POST'});
+  const json = await resp.json();
+  if(json.status === 'ok'){
+    alert("Recompense ajoutee. Nouveau solde : " + json.new_balance + " F");
+    window.location.href = "{{ url_for('dashboard') }}";
+  } else {
+    if(json.status === 'already_rewarded') alert("Vous avez deja ete recompense pour cette video.");
+    else alert("Erreur : " + JSON.stringify(json));
+  }
+});
+</script>
+{% endblock %}

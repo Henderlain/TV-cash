@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Paiement - Inscription</h2>
+<p>Utilisateur : {{ user['email'] }}</p>
+<p>Montant : <strong>{{ reg_fee }} F</strong></p>
+
+<form action="{{ url_for('pay_orange', payment_id=payment_id) }}" method="post" style="display:inline">
+  <button class="btn">Payer avec Orange Money</button>
+</form>
+
+<form action="{{ url_for('pay_mchain', payment_id=payment_id) }}" method="post" style="display:inline">
+  <button class="btn btn-secondary">Payer avec MTN</button>
+</form>
+
+<p><em>En production, le flux redirigera vers la page de confirmation du provider et appellera notre webhook pour finaliser</em></p>
+{% endblock %}

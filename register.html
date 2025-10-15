@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Inscription</h2>
+<form method="POST">
+  <label>Email</label><input type="email" name="email" required>
+  <label>Telephone</label><input type="text" name="phone" required>
+  <label>Mot de passe</label><input type="password" name="password" required>
+  <label>Code de parrainage (optionnel)</label><input type="text" name="referral">
+  <p>Frais d'inscription obligatoires : <strong>{{ reg_fee }} F</strong></p>
+  <button type="submit">S'inscrire et payer</button>
+</form>
+{% endblock %}

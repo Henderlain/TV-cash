@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Bienvenue sur Royalties Rewards</h1>
+<p>Decouvre des videos et gagne {{ VIDEO_REWARD if (VIDEO_REWARD is defined) else 250 }} F par video!</p>
+
+<section class="videos-grid">
+  {% for v in videos %}
+    <article class="card">
+      <h3>{{ v['title'] }}</h3>
+      <div class="embed">
+        <!-- On stocke un embed_url (iframe src) pour youtube / tiktok -->
+        <iframe src="{{ v['embed_url'] }}" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="actions">
+        <a class="btn" href="{{ url_for('video_detail', video_id=v['id']) }}">Voir</a>
+      </div>
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

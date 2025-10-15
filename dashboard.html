@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Tableau de bord</h2>
+<p>Email : {{ user.email }}</p>
+<p>Solde : <strong>{{ user.balance }} F</strong></p>
+<p>Code de parrainage : <strong>{{ user.referral_code }}</strong></p>
+<p>Parrainages : {{ refs }} ({{ refs * REFERRAL_BONUS if (REFERRAL_BONUS is defined) else refs*1000 }} F gagnés)</p>
+
+<h3>Videos disponibles</h3>
+<div class="videos-grid">
+  {% for v in videos %}
+    <article class="card">
+      <h3>{{ v['title'] }}</h3>
+      <div class="embed"><iframe src="{{ v['embed_url'] }}" frameborder="0" allowfullscreen></iframe></div>
+      <div class="actions">
+        <a class="btn" href="{{ url_for('video_detail', video_id=v['id']) }}">Voir</a>
+      </div>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}
